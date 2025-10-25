@@ -1,16 +1,151 @@
-# React + Vite
+🔧 Project Setup
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Create a new React project with Vite:
 
-Currently, two official plugins are available:
+npm create vite@latest my-dashboard
+cd my-dashboard
+code .
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## React Compiler
+Choose React and JavaScript (or TypeScript if preferred).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+my-dashboard is your project folder name.
 
-## Expanding the ESLint configuration
+📦 Install Dependencies
+npm install react-router-dom@latest
+npm install tailwindcss @tailwindcss/vite
+npm install recharts
+npm install antd @ant-design/icons
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+React Router – page navigation
+
+Tailwind CSS – styling
+
+Recharts – charts
+
+Ant Design – UI components
+
+🎨 Configure Tailwind CSS
+
+In index.css (or main.css):
+
+@import "tailwindcss";
+
+🗂 Folder Structure
+my-dashboard/
+├─ node_modules/
+├─ public/
+├─ src/
+│  ├─ components/
+│  │  ├─ pages/
+│  │  │  ├─ home/Home.jsx
+│  │  │  └─ Users/User.jsx
+│  │  └─ Layout/Mainlayout.jsx
+│  ├─ routes/router.jsx
+│  ├─ index.css
+│  └─ main.jsx
+├─ package.json
+└─ vite.config.js
+
+⚡ Main Entry (main.jsx)
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import './index.css';
+import { RouterProvider } from 'react-router-dom';
+import { router } from './routes/router';
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <RouterProvider router={router} />
+  </StrictMode>
+);
+
+🛣 Routing Setup (router.jsx)
+import { createBrowserRouter } from "react-router-dom";
+import Mainlayout from "../components/Layout/Mainlayout";
+import Home from "../components/pages/home/Home";
+import User from "../components/pages/Users/User";
+
+export const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Mainlayout />,
+        children: [
+            { path: "/", element: <Home /> },
+            { path: "/users", element: <User /> },
+        ]
+    }
+]);
+
+🏗 Main Layout (Mainlayout.jsx)
+// Imports...
+const MainLayout = () => {
+  const location = useLocation();
+  const menuItems = [
+    { key: "/", icon: <DashboardOutlined />, label: "Dashboard" },
+    { key: "/users", icon: <UserOutlined />, label: "Users" },
+    { key: "/wallet", icon: <WalletOutlined />, label: "Wallet" },
+    { key: "/income", icon: <BarChartOutlined />, label: "Income" },
+    { key: "/settings", icon: <SettingOutlined />, label: "Settings" },
+    { key: "/logout", icon: <LogoutOutlined />, label: "Log Out" },
+  ];
+
+  return (
+    <ConfigProvider theme={{/* custom theme */}}>
+      <Layout className="min-h-screen">
+        <Sider> {/* Sidebar with Menu & Logo */} </Sider>
+        <Layout>
+          <Header> {/* Top Bar */} </Header>
+          <Content> {/* Outlet content */} </Content>
+        </Layout>
+      </Layout>
+    </ConfigProvider>
+  );
+};
+
+
+Key points:
+
+Sider – Sidebar menu
+
+Header – Top bar
+
+Content – Main area for child routes
+
+ConfigProvider – Customize Ant Design theme
+
+useLocation – Highlights active menu item
+
+📄 Pages (Home & User)
+
+Home.jsx
+
+const Home = () => <div className="text-lg font-medium">This is the Home Page.</div>;
+export default Home;
+
+
+User.jsx
+
+const User = () => <div className="text-lg font-medium">This is the Users Page.</div>;
+export default User;
+
+▶️ Run the Project
+npm run dev
+
+
+Open your browser at: http://localhost:5173
+
+✅ Summary
+
+Create React project with Vite
+
+Install Tailwind, Ant Design, React Router, and Recharts
+
+Organize folder structure for pages, layout, and routes
+
+Build sidebar, header, and main content layout
+
+Use React Router v6 for navigation
+
+Customize Ant Design themes

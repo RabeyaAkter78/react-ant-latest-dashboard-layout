@@ -33,7 +33,7 @@ In index.css:
 ```
 and in vite.config.js  file: 
 ```
-import tailwindcss from "@tailwindcss/vite"; and call ## tailwindcss()
+import tailwindcss from "@tailwindcss/vite"; and call tailwindcss()
 ```
 
 3. Folder Structure
